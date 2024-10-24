@@ -1,9 +1,9 @@
 terraform {
   backend "s3" {
-    bucket         = "aca-terraform-states"
+    bucket         = "project.ht.tg01"
     dynamodb_table = "terraform-state-lock"
     encrypt        = true
-    key            = "projects/aca-terraform-states.tfstate"
+    key            = "projects/project.ht.tg01.tfstate"
     region         = "us-east-1"
   }
 }
