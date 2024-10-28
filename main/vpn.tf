@@ -9,7 +9,7 @@ resource "aws_instance" "openvpn_server" {
   user_data = base64encode(file("${path.module}/scripts/openvpn-setup.sh"))
 
   tags = {
-    Name = "${local.prefix}-openvpn-server."
+    Name = "${local.prefix}-openvpn-server"
   }
 }
 
