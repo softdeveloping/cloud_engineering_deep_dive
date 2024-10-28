@@ -3,15 +3,15 @@ name: Terraform Plan and Apply
 on:
   push:
     branches:
-      - main
+      - infra
     paths:
-      - 'main/**'
+      - 'infra/**'
       - '.github/workflows/terraform.infra.yml'
   pull_request:
     branches:
-      - main
+      - infra
     paths:
-      - 'main/**'
+      - 'infra/**'
       - '.github/workflows/terraform.infra.yml'
 
 jobs:
