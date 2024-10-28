@@ -3,13 +3,13 @@ name: Terraform Plan and Apply
 on:
   push:
     branches:
-      - main
+      - dev
     paths:
       - 'infra/**'
       - '.github/workflows/terraform.infra.yml'
   pull_request:
     branches:
-      - main
+      - dev
     paths:
       - 'infra/**'
       - '.github/workflows/terraform.infra.yml'
