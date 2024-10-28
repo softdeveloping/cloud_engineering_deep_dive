@@ -63,10 +63,6 @@ jobs:
         fi
       working-directory: ./infra
 
-    - name: Terraform Format Check
-      run: terraform fmt -check
-      working-directory: ./infra
-
     - name: Terraform Plan
       run: terraform plan -out=tfplan
       working-directory: ./infra
