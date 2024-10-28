@@ -23,7 +23,7 @@ output "public_subnet_ids" {
 
 # You might also want to output the availability zones used
 output "availability_zones" {
-  description = "List of availability zones used"
+  description = "List of availability zones used."
   value       = aws_subnet.core_private[*].availability_zone
 }
 
