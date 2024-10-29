@@ -26,7 +26,7 @@ resource "aws_eip" "openvpn_eip" {
 # Security Group for OpenVPN Server
 resource "aws_security_group" "openvpn_sg" {
   name        = "${local.prefix}-openvpn-security-group"
-  description = "Security group for OpenVPN server.."
+  description = "Security group for OpenVPN server"
   vpc_id      = aws_vpc.main.id
 
   ingress {
