@@ -3,13 +3,13 @@ name: Terraform Plan and Apply
 on:
   push:
     branches:
-      - main
+      - dev
     paths:
       - 'main/**'
       - '.github/workflows/terraform.main.yml'
   pull_request:
     branches:
-      - main
+      - dev
     paths:
       - 'main/**'
       - '.github/workflows/terraform.main.yml'
@@ -83,7 +83,7 @@ jobs:
     permissions:
       id-token: write
       contents: read
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/dev' && github.event_name == 'push'
 
     steps:
     - name: Checkout code
