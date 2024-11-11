@@ -1,6 +1,6 @@
 [
     {
-      "name": "${terraform.workspace}-ecs-app01",
+      "name": "ecs-app01",
       "image": "nginx",
       "cpu": 256,
       "memory": 512,

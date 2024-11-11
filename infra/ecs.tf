@@ -2,6 +2,13 @@ resource "aws_ecs_cluster" "ecs_cluster" {
   name = "${terraform.workspace}-ecs-cluster"
 }
 
+resource "aws_launch_configuration" "ecs_config" {
+  image_id      = "ami-0f67e16c7985989f7" # Use an appropriate AMI ID
+  instance_type = "t2.micro"
+  iam_instance_profile = aws_iam_instance_profile.ecs_instance_profile.name
+  security_groups      = [aws_security_group.ec2_sg.id]
+}
+
 resource "aws_ecs_task_definition" "ecs_task" {
   family                   = "${terraform.workspace}-ecs-task"
   container_definitions    = file("${path.module}/container_definitions.json")
@@ -16,7 +23,7 @@ resource "aws_ecs_service" "ecs_service" {
 
   load_balancer {
     target_group_arn = aws_lb_target_group.ecs_target_group.arn
-    container_name   = "${terraform.workspace}-ecs-container"
+    container_name   = "ecs-app01"
     container_port   = 80
   }
 }
@@ -37,15 +44,18 @@ resource "aws_ecs_capacity_provider" "ecs_provider" {
 }
 
 resource "aws_ecs_cluster_capacity_providers" "ecs_cluster_providers" {
-  cluster_name = aws_ecs_cluster.ecs_cluster.id
+  cluster_name = aws_ecs_cluster.ecs_cluster.name  # use .name instead of .id
+
   capacity_providers = [
     aws_ecs_capacity_provider.ecs_provider.name,
   ]
+
   default_capacity_provider_strategy {
     capacity_provider = aws_ecs_capacity_provider.ecs_provider.name
     weight            = 1
   }
 }
+
 
 resource "aws_autoscaling_group" "ecs_asg" {
   launch_configuration = aws_launch_configuration.ecs_config.id
@@ -53,13 +63,6 @@ resource "aws_autoscaling_group" "ecs_asg" {
   desired_capacity     = 2
   min_size             = 1
   max_size             = 5
-}
-
-resource "aws_launch_configuration" "ecs_config" {
-  image_id      = "ami-12345678" # Use an appropriate AMI ID
-  instance_type = "t2.micro"
-  iam_instance_profile = aws_iam_instance_profile.ecs_instance_profile.name
-  security_groups      = [aws_security_group.ec2_sg.id]
 }
 
 resource "aws_appautoscaling_policy" "cpu_scale_up" {
