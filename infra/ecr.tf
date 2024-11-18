@@ -1,7 +1,7 @@
 # --- ECR ---
 
 resource "aws_ecr_repository" "app" {
-  name                 = "demo-app"
+  name                 = "demo-app02"
   image_tag_mutability = "MUTABLE"
   force_delete         = true
 
